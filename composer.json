@@ -1,0 +1,22 @@
+{
+    "name": "exussum12/xxhash",
+    "description": "xxHash implementation in Pure PHP",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^7.1",
+        "php": ">=7.0",
+        "ext-bcmath": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "exussum12\\xxhash\\": "src"  
+        }
+    },
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Scott Dutton",
+            "email": "scott@exussum.co.uk"
+        }
+    ]
+}
