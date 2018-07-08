@@ -1,5 +1,6 @@
 <?php
 namespace exussum12\xxhash;
+use InvalidArgumentException;
 
 /**
  * Class V32
@@ -22,6 +23,19 @@ class V32
     }
     public function hash(string $input)
     {
+        $file = tmpfile();
+        fwrite($file, $input);
+        rewind($file);
+
+        return $this->hashStream($file);
+    }
+
+    public function hashStream($input)
+    {
+        if (get_resource_type($input) !== "stream") {
+            throw new InvalidArgumentException();
+        }
+
         $accumulators = [
             $this->add(
                 $this->add($this->seed, self::PRIME_1),
@@ -34,9 +48,10 @@ class V32
 
 
         $accumulator = $this->add($this->seed, self::PRIME_5);
-        for ($index = 0, $length = strlen($input); ($length - $index) >= 16; $index += 16) {
+        $length = 0;
+        while (($part = fread($input, 16)) && ($length += strlen($part)) && strlen($part) == 16) {
             foreach ([0,1,2,3] as $iteration) {
-                $lane = $this->getLane($input, $index + ($iteration * 4));
+                $lane = $this->getLane($part, ($iteration * 4));
 
                 $current = &$accumulators[$iteration];
                 $current = $this->add(
@@ -48,12 +63,11 @@ class V32
             }
         }
 
-        if ($index > 0) {
+        if ($length >= 16) {
             $accumulator = $this->accumulate($accumulators);
-            $input = substr($input, $index);
         }
         $accumulator = $this->add($accumulator, $length);
-        return $this->smallInput($input, $accumulator);
+        return $this->smallInput($part, $accumulator);
     }
 
     private function smallInput($input, $accumulator)
