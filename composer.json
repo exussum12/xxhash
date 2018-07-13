@@ -12,7 +12,7 @@
             "exussum12\\xxhash\\": "src"  
         }
     },
-    "license": "BSD",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Scott Dutton",
