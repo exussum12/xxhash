@@ -18,21 +18,31 @@ class V32
 
     public function __construct(int $seed = 0)
     {
-
         $this->seed = $seed;
     }
-    public function hash(string $input)
+
+    public function hash(string $input): string
     {
         $file = tmpfile();
         fwrite($file, $input);
         rewind($file);
 
+        if (!isset($this)) {
+            $hash = new self();
+            return $hash->hashStream($file);
+        }
+
         return $this->hashStream($file);
     }
 
-    public function hashStream($input)
+    public function hashStream($input): string
     {
-        if (get_resource_type($input) !== "stream") {
+        if (!isset ($this)) {
+            $hash = new self();
+            return $hash->hashStream($input);
+        }
+
+        if (get_resource_type($input) !== 'stream') {
             throw new InvalidArgumentException();
         }
 
@@ -70,10 +80,10 @@ class V32
         return $this->smallInput($part, $accumulator);
     }
 
-    private function smallInput($input, $accumulator)
+    private function smallInput($input, $accumulator): string
     {
 
-        list($accumulator, $i, $length) = $this->handle4ByteGroups($input, $accumulator);
+        [$accumulator, $i, $length] = $this->handle4ByteGroups($input, $accumulator);
 
         $accumulator = $this->handleLeftOverBytes($input, $accumulator, $length, $i);
 
@@ -128,7 +138,7 @@ class V32
     /**
      * left shift wrap at 32 bits
      */
-    public function leftShift($x, $bits)
+    public function leftShift($x, $bits): int
     {
         //left shift is a circular shift so shifted off bits become lower bits
         $circle = $x >> (32-$bits);

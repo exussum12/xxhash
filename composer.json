@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "phpunit/phpunit": "^7.1",
-        "php": ">=7.0",
+        "php": ">=7.1",
         "ext-bcmath": "*"
     },
     "autoload": {

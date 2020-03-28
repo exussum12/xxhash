@@ -6,6 +6,11 @@ use exussum12\xxhash\V32;
 
 class HashTest extends TestCase
 {
+    /**
+     * @var V32
+     */
+    protected $hash;
+
     public function setUp()
     {
         $this->hash = new V32(0);
@@ -49,6 +54,13 @@ class HashTest extends TestCase
         $this->assertSame(
             '340dc2d3',
             $hash->hash('test')
+        );
+    }
+    public function testStaticCall()
+    {
+        $this->assertSame(
+            '3e2023cf',
+            V32::hash('test')
         );
     }
 }
