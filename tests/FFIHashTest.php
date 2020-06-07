@@ -2,9 +2,9 @@
 namespace exussum12\xxhash\tests;
 
 use PHPUnit\Framework\TestCase;
-use exussum12\xxhash\V32;
+use exussum12\xxhash\Ffi\V32;
 
-class HashTest extends TestCase
+class FFIHashTest extends TestCase
 {
     protected V32 $hash;
 

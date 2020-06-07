@@ -6,7 +6,7 @@ use InvalidArgumentException;
  * Class V32
  * @see https://github.com/Cyan4973/xxHash/wiki/xxHash-specification-(draft)
  */
-class V32
+class V32 implements Hash
 {
     private const PRIME_1 = 2654435761;
     private const PRIME_2 = 2246822519;
