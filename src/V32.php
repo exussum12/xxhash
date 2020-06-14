@@ -1,5 +1,6 @@
 <?php
 namespace exussum12\xxhash;
+
 use InvalidArgumentException;
 
 /**
@@ -37,7 +38,7 @@ class V32 implements Hash
 
     public function hashStream($input): string
     {
-        if (!isset ($this)) {
+        if (!isset($this)) {
             $hash = new self();
             return $hash->hashStream($input);
         }
@@ -101,7 +102,7 @@ class V32 implements Hash
     /**
      * 32 bit safe multiplication
      */
-    public function multiply($a, $b):int
+    public function multiply($a, $b): int
     {
         $result = $a * $b;
         if (is_int($result) && $result > 0) {
@@ -117,7 +118,7 @@ class V32 implements Hash
     /**
      * Add but wrap at 32 bits
      */
-    public function add($a, $b):int
+    public function add($a, $b): int
     {
         return ($a + $b) % (1<<32);
     }
