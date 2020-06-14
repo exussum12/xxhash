@@ -7,7 +7,9 @@ XXH32_hash_t XXH32(
         XXH32_hash_t seed
 );
 void XXH32_update(
-XXH32_state_t* state, const void* input, size_t len
+    XXH32_state_t* state,
+    const void* input,
+    size_t len
 );
 XXH32_state_t* XXH32_createState();
 void XXH32_reset(XXH32_state_t*, XXH32_hash_t);
