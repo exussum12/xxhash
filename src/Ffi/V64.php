@@ -8,7 +8,7 @@ use FFI;
  * This uses the FFI extension which should be much faster than native.
  * @see https://github.com/Cyan4973/xxHash/wiki/xxHash-specification-(draft)
  */
-class V64 extends Base
+final class V64 extends Base
 {
     protected string $hash = 'XXH64';
     protected string $createState = 'XXH64_createState';
