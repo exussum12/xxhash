@@ -37,3 +37,12 @@ Static functions should in general be avoided, so the first method is the prefer
 ## FFI
 Since PHP 7.4 FFI allows PHP to call the native C client. This is much faster and the preferred way if your running PHP 7.4
 
+### Speed Comparison
+This is hashing a 320mb file using the stream method.
+The time is the time take (smaller is better)
+
+|Method       |Time  |
+|-------------|------|
+|xxHash Binary| 0.081|
+|FFI          | 0.194|
+|Pure PHP     |49.218|
