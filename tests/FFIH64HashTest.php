@@ -2,20 +2,20 @@
 namespace exussum12\xxhash\tests;
 
 use PHPUnit\Framework\TestCase;
-use exussum12\xxhash\V32;
+use exussum12\xxhash\Ffi\V64;
 
-class HashTest extends TestCase
+class FFIH64HashTest extends TestCase
 {
-    protected V32 $hash;
+    protected V64 $hash;
 
     public function setUp()
     {
-        $this->hash = new V32(0);
+        $this->hash = new V64(0);
     }
     public function testSingleByte()
     {
         $this->assertSame(
-            '3e2023cf',
+            '4fdcca5ddb678139',
             $this->hash->hash('test')
         );
     }
@@ -23,7 +23,7 @@ class HashTest extends TestCase
     public function testLeftOverBytes()
     {
         $this->assertSame(
-            'a490f2c5',
+            'b8f97d6e4b71ad0',
             $this->hash->hash('test1')
         );
     }
@@ -31,7 +31,7 @@ class HashTest extends TestCase
     public function test16Byes()
     {
         $this->assertSame(
-            'd935be16',
+            '539eee07e4f72744',
             $this->hash->hash('testtesttesttest')
         );
     }
@@ -39,25 +39,25 @@ class HashTest extends TestCase
     public function test17Byes()
     {
         $this->assertSame(
-            '93180678',
+            'bbcf707044ae361a',
             $this->hash->hash('testtesttesttest1')
         );
     }
 
     public function testDifferntSeed()
     {
-        $hash = new V32(3);
+        $hash = new V64(3);
 
         $this->assertSame(
-            '340dc2d3',
+            '4e75e829de9fa9dd',
             $hash->hash('test')
         );
     }
     public function testStaticCall()
     {
         $this->assertSame(
-            '3e2023cf',
-            V32::hash('test')
+            '4fdcca5ddb678139',
+            V64::hash('test')
         );
     }
 }
