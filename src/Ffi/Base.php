@@ -29,7 +29,12 @@ abstract class Base implements Hash
             return $hash->hash($input);
         }
 
-        return dechex($this->ffi->{$this->hash}($input, strlen($input), $this->seed));
+				$output = $this->ffi->{$this->hash}($input, strlen($input), $this->seed);
+				if (is_int($output)) {
+					return dechex($output);
+				}
+
+				return dechex($output->low64) . dechex($output->high64);
     }
 
     public function hashStream($input): string
