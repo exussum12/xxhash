@@ -8,7 +8,10 @@ class FFIH64HashTest extends TestCase
 {
     protected V64 $hash;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function bootstrap()
     {
         $this->hash = new V64(0);
     }

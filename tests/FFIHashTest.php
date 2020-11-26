@@ -8,10 +8,14 @@ class FFIHashTest extends TestCase
 {
     protected V32 $hash;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function bootstrap()
     {
         $this->hash = new V32(0);
     }
+
     public function testSingleByte()
     {
         $this->assertSame(
