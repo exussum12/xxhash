@@ -15,7 +15,8 @@ final class V128 extends Base
     protected string $reset = 'XXH3_128bits_reset';
     protected string $update = 'XXH3_128bits_update';
     protected string $digest = 'XXH3_128bits_digest';
-    protected string $freeState = 'XXH3_128bits_digest';
+    protected string $freeState = 'XXH3_freeState';
+    protected string $toHash = 'XXH128_canonicalFromHash';
 
     public function __construct(int $seed = 0)
     {
@@ -24,5 +25,6 @@ final class V128 extends Base
             file_get_contents(__DIR__ . '/Headers/XXH128.h'),
             __DIR__ . '/libxxhash.so.0.7.4'
         );
+
     }
 }

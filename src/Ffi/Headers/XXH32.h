@@ -14,4 +14,4 @@ void XXH32_update(
 XXH32_state_t* XXH32_createState();
 void XXH32_reset(XXH32_state_t*, XXH32_hash_t);
 XXH32_hash_t XXH32_digest(XXH32_state_t*);
-XXH_errorcode XXH32_freeState(XXH32_state_t* statePtr);
+XXH_errorcode XXH32_freeState(XXH32_state_t*);

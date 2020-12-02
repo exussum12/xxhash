@@ -5,7 +5,7 @@ use FFI;
 use exussum12\xxhash\Hash;
 
 /**
- * Class V64
+ * Abstract Class Base
  * This uses the FFI extension which should be much faster than native.
  * @see https://github.com/Cyan4973/xxHash/wiki/xxHash-specification-(draft)
  */
@@ -21,6 +21,7 @@ abstract class Base implements Hash
     protected string $update = '';
     protected string $digest = '';
     protected string $freeState = '';
+    protected string $toHash = '';
 
     public function hash(string $input): string
     {
@@ -29,12 +30,12 @@ abstract class Base implements Hash
             return $hash->hash($input);
         }
 
-				$output = $this->ffi->{$this->hash}($input, strlen($input), $this->seed);
-				if (is_int($output)) {
-					return dechex($output);
-				}
-
-				return dechex($output->low64) . dechex($output->high64);
+        $output = $this->ffi->{$this->hash}($input, strlen($input), $this->seed);
+        $hash = $this->ffi->new('XXH128_canonical_t');
+        $this->ffi->{$this->toHash}(FFI::addr($hash), $output);
+        var_dump(FFI::cast('char*', $hash->digest));
+        die();
+        return $this->hash;
     }
 
     public function hashStream($input): string
@@ -51,8 +52,9 @@ abstract class Base implements Hash
             $buffer = fread($input, 8192);
             $this->ffi->{$this->update}($state, $buffer, strlen($buffer));
         }
+        $hash = '';
 
-        $hash = dechex($this->ffi->{$this->digest}($state));
+        $this->ffi->{$this->toHash}($hash, $this->ffi->{$this->digest}($state));
 
         $this->ffi->{$this->freeState}($state);
         return $hash;
